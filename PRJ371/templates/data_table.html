@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Data and Simulation</title>
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Uploaded CSV Data and Simulation</h1>
+
+        <div class="tables-container">
+            <!-- Table displaying the uploaded CSV data -->
+            <div>
+                <h2>Original Data</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            {% for col in columns %}
+                            <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            {% for col in columns %}
+                            <td>{{ row[col] }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table displaying the simulated random data -->
+            <div>
+                {% if simulated_data %}
+                <h2>Simulated Data</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            {% for col in columns %}
+                            <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in simulated_data %}
+                        <tr>
+                            {% for col in columns %}
+                            <td>{{ row[col] }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Form to trigger simulation -->
+        <form action="{{ url_for('simulate_data') }}" method="POST">
+            <button type="submit">Simulate Random Data</button>
+        </form>
+    </div>
+</body>
+</html>
